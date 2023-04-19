@@ -19,7 +19,7 @@ app.use(express.json());
 
 // just a get request
 app.get("/getUserList", (req, res) => {
-  console.log("chiththi aayi hai");
+  console.log("request for all user ");
   try {
     UserCardModel.find({}).then((data) => {
       // console.log(data);
@@ -36,13 +36,6 @@ app.get("/getUserList", (req, res) => {
   }
 });
 
-/*
- * Body in the create user entry must contain following fields:
- * imgSrc
- * email
- * contactNo
- * website
- */
 app.post("/createUser", (req, res) => {
   try {
     UserCardModel.create({ ...req.body }).then((data) => {
@@ -82,7 +75,30 @@ app.patch("/editUser/:_id", (req, res) => {
       status: "DATA_UPDATION_FAILED",
     });
   }
-});
+}); //
+//testbyme
+app.patch("/likeUserone", (req, res) => {
+  console.log(req.body);
+
+  try {
+    UserCardModel.findOneAndUpdate(
+      { id: req.body.id },
+      { like: req.body.like },
+      { new: true }
+    ).then((data) => {
+      console.log("Updated data is ", data);
+      res.status(200).json({
+        status: "DATA_LIKE_SUCCESS",
+        data: data,
+      });
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      status: "DATA_LIKE_FAILED",
+    });
+  }
+}); //
 
 // delete the user
 app.delete("/deleteUser", (req, res) => {

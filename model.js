@@ -9,8 +9,9 @@ const UserCardSchema = mongoose.Schema({
   name: String,
   username: String,
   id: Number,
+  like: Boolean,
 });
 
-const UserCardModel = mongoose.model("UserMediaCardDetails", UserCardSchema);
+const UserCardModel = mongoose.model("UserMediaCardDetails1", UserCardSchema);
 
 module.exports = UserCardModel;
